@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKF Diagnosis | Advanced Lab Reader</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MKF Diagnosis</h1>
+            <p>Upload your lab test (Image or PDF) for instant client-side analysis.</p>
+        </header>
+
+        <div class="disclaimer">
+            <strong>⚠️ Medical Disclaimer:</strong> Prototype only. Data is extracted via pattern recognition and processed entirely on your device. Always consult a doctor.
+        </div>
+
+        <div class="upload-section">
+            <input type="file" id="fileInput" accept=".pdf, image/png, image/jpeg, image/jpg">
+            <button id="analyzeBtn">Analyze Lab Test</button>
+        </div>
+
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p id="loadingText">Analyzing document... please wait.</p>
+        </div>
+
+        <div id="historySection" class="hidden">
+            <h3>🕒 Last Saved Result</h3>
+            <button id="loadHistoryBtn" class="secondary-btn">View Previous Analysis</button>
+            <button id="clearHistoryBtn" class="danger-btn">Clear Memory</button>
+        </div>
+
+        <div id="results" class="hidden">
+            <h2>Diagnostic Findings</h2>
+            <div id="extractedData"></div>
+            <div id="diagnosisCard"></div>
+            
+            <details>
+                <summary>View Raw Extracted Text</summary>
+                <pre id="rawText"></pre>
+            </details>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
