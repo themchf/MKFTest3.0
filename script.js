@@ -55,13 +55,13 @@ function toggleLoading(isLoading) {
 }
 
 async function processImage(file) {
-    document.getElementById('loadingText').innerText = "Running OCR... analyzing image.";
+    document.getElementById('loadingText').innerText = "Analyzing image...";
     const result = await Tesseract.recognize(file, 'eng');
     return result.data.text;
 }
 
 async function processPDF(file) {
-    document.getElementById('loadingText').innerText = "Parsing PDF document...";
+    document.getElementById('loadingText').innerText = "Reading PDF document...";
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
     let text = "";
@@ -144,8 +144,8 @@ function analyzeLabResults(text, saveToHistory) {
 
     const diagnosisCard = document.getElementById('diagnosisCard');
     if (issuesFound > 0) {
-        diagnosisCard.innerHTML = `<h3>💡 Preliminary Analysis</h3><p>We noticed <strong>${issuesFound} value(s)</strong> outside the standard reference range. Please share these results with your primary care physician for a professional interpretation.</p>`;
+        diagnosisCard.innerHTML = `<h3>💡 Analysis</h3><p>We noticed <strong>${issuesFound} value(s)</strong> outside the standard reference range. Please share these results with your primary care physician for a professional interpretation.</p>`;
     } else if (findingsHTML !== "") {
-        diagnosisCard.innerHTML = `<h3>💡 Preliminary Analysis</h3><p>Based on the extracted data, all detected values appear to be within normal limits. Always consult your doctor for a full review!</p>`;
+        diagnosisCard.innerHTML = `<h3>💡 Analysis</h3><p>Based on the Lab Test, all detected values appear to be within normal limits. Always consult your doctor for a full review!</p>`;
     }
 }
