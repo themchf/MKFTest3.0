@@ -72,9 +72,19 @@ function analyzeLabResults(text) {
     const markers = [
         // --- BLOOD COUNT (CBC) ---
         { 
-            name: "HGB", regex: /(?:HGB|HEMOGLOBIN)[\s:=]+([\d\.]+)/, min: 13.5, max: 17.5, unit: "g/dL", desc: "Hemoglobin",
-            lowInterp: "Low HGB indicates Anemia. Your blood is carrying less oxygen than it should.",
-            highInterp: "High HGB can be caused by dehydration, smoking, or living at high altitudes."
+        name: "RBC", regex: /(?:RBC|ERYTHROCYTES)[\s:=]+([\d\.]+)/, min: 4.2, max: 5.9, unit: "M/uL", desc: "Red Blood Cells",
+        lowInterp: "Low RBC (Anemia) means your body may not be getting enough oxygen to your tissues, causing fatigue.",
+        highInterp: "High RBC (Polycythemia) can be caused by low oxygen levels (altitude/smoking) or bone marrow issues."
+        },
+        { 
+        name: "HGB", regex: /(?:HGB|HEMOGLOBIN)[\s:=]+([\d\.]+)/, min: 13.5, max: 17.5, unit: "g/dL", desc: "Hemoglobin",
+        lowInterp: "Low Hemoglobin is a primary sign of anemia.",
+        highInterp: "High Hemoglobin makes blood thicker, sometimes increasing the risk of clots."
+        },
+        { 
+        name: "HCT", regex: /HCT[\s:=]+([\d\.]+)/, min: 38, max: 50, unit: "%", desc: "Hematocrit",
+        lowInterp: "Low Hematocrit suggests you have too few red blood cells for the volume of your blood.",
+        highInterp: "High Hematocrit often indicates significant dehydration."
         },
         { 
             name: "MCV", regex: /MCV[\s:=]+([\d\.]+)/, min: 80, max: 100, unit: "fL", desc: "Mean Corpuscular Volume",
