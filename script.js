@@ -116,12 +116,17 @@ function analyzeLabResults(text) {
             highInterp: "High Creatinine suggests the kidneys may not be filtering waste effectively."
         },
 
-        // --- LIVER & ENZYMES ---
+        // --- LIVER & ENZYMES (Updated with S.GOT/S.GPT aliases) ---
         { 
-            name: "ALT", regex: /(?:ALT|SGPT)[\s:=]+([\d\.]+)/, min: 7, max: 55, unit: "U/L", desc: "ALT (Liver Enzyme)",
-            lowInterp: "Low ALT is considered normal.",
-            highInterp: "High ALT can indicate liver inflammation, fatty liver, or stress from medications."
+            name: "ALT", regex: /(?:ALT|SGPT|S\.GPT)[\s:=]+([\d\.]+)/, min: 7, max: 55, unit: "U/L", desc: "ALT (S.GPT)",
+            lowInterp: "Low ALT is generally normal.",
+            highInterp: "High ALT (S.GPT) is a specific marker for liver inflammation. It often rises due to fatty liver, viral hepatitis, or certain medications."
         },
+        { 
+            name: "AST", regex: /(?:AST|SGOT|S\.GOT)[\s:=]+([\d\.]+)/, min: 8, max: 48, unit: "U/L", desc: "AST (S.GOT)",
+            lowInterp: "Low AST is normal.",
+            highInterp: "High AST (S.GOT) can indicate liver damage, but it's also found in the heart and muscles. If this is high but ALT is normal, the issue might be outside the liver."
+      },
 
         // --- VITAMINS ---
         { 
