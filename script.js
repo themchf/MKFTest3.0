@@ -41,7 +41,7 @@ function toggleLoading(isLoading) {
 }
 
 async function processImage(file) {
-    document.getElementById('loadingText').innerText = "Running OCR... analyzing image.";
+    document.getElementById('loadingText').innerText = "Analyzing image...";
     const result = await Tesseract.recognize(file, 'eng');
     return result.data.text;
 }
