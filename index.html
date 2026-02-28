@@ -3,42 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKF Radiology - AI Image Analysis</title>
+    <title>MKF Radiology | Diagnostic AI Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="dashboard">
         <header>
-            <h1>MKF Radiology</h1>
-            <p>Advanced AI-Assisted Medical Imaging Analysis</p>
+            <h1>MKF Radiology Engine</h1>
+            <p class="subtitle">Client-Side Image Processing Prototype</p>
         </header>
 
-        <main>
-            <div class="upload-section">
-                <h2>Upload Scan</h2>
-                <p>Supported formats: X-Ray, CT, PET CT, MRI (JPG, PNG)</p>
-                <input type="file" id="imageUpload" accept="image/png, image/jpeg">
-                <label for="imageUpload" class="upload-btn">Choose Image</label>
-            </div>
+        <main class="grid-container">
+            <section class="panel upload-panel">
+                <h2>1. Input Modality</h2>
+                <div class="upload-area" id="dropZone">
+                    <p>Drag & Drop Scan Here</p>
+                    <p>or</p>
+                    <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/webp">
+                    <label for="imageUpload" class="btn">Browse Files</label>
+                </div>
+                <div id="fileMeta" class="meta-data"></div>
+            </section>
 
-            <div class="preview-section" id="previewSection" style="display: none;">
-                <h3>Image Preview</h3>
-                <img id="imagePreview" src="" alt="Scan Preview">
-                <button id="analyzeBtn" class="analyze-btn">Analyze Scan</button>
-            </div>
+            <section class="panel preview-panel">
+                <h2>2. Viewer</h2>
+                <div class="viewer-container">
+                    <img id="imagePreview" src="" alt="Awaiting upload...">
+                </div>
+                <button id="analyzeBtn" class="btn btn-primary" disabled>Initialize AI Analysis</button>
+            </section>
 
-            <div class="results-section" id="resultsSection" style="display: none;">
-                <h3>Analysis Results</h3>
-                <div class="loader" id="loader"></div>
-                <div id="resultText"></div>
-            </div>
+            <section class="panel results-panel">
+                <h2>3. Analysis Report</h2>
+                <div id="processingSteps" class="processing-steps">
+                    <p id="step1">⧖ Preprocessing image...</p>
+                    <p id="step2">⧖ Extracting features...</p>
+                    <p id="step3">⧖ Running classification weights...</p>
+                </div>
+                
+                <div id="reportContainer" class="report-container" style="display: none;">
+                    <div class="report-header">
+                        <span class="badge" id="confidenceBadge">Confidence: --%</span>
+                        <span class="badge badge-outline" id="modalityBadge">Modality: Unknown</span>
+                    </div>
+                    
+                    <div class="report-body">
+                        <h3>Findings</h3>
+                        <p id="findingsText">--</p>
+                        
+                        <h3>Impression</h3>
+                        <p id="impressionText" class="highlight-text">--</p>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <footer>
-            <p class="disclaimer"><strong>DISCLAIMER:</strong> MKF Radiology is a demonstration interface. This tool does NOT provide real medical diagnoses. Always consult a qualified healthcare professional for medical advice and interpretation of radiological images.</p>
+            <div class="warning-banner">
+                <strong>FOR DEMONSTRATION ONLY:</strong> This static web application uses simulated deterministic logic based on file metadata. It does not perform actual machine learning inference. Do not use for clinical decision-making.
+            </div>
         </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
