@@ -3,48 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKF Diagnosis | Advanced Lab Reader</title>
+    <title>MKF Radiology - AI Image Analysis</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>MKF Diagnosis</h1>
-            <p>Upload your lab test (Image or PDF) for instant analysis.</p>
+            <h1>MKF Radiology</h1>
+            <p>Advanced AI-Assisted Medical Imaging Analysis</p>
         </header>
 
-        <div class="disclaimer">
-            <strong>⚠️ Medical Disclaimer:</strong> Always consult a doctor.
-        </div>
+        <main>
+            <div class="upload-section">
+                <h2>Upload Scan</h2>
+                <p>Supported formats: X-Ray, CT, PET CT, MRI (JPG, PNG)</p>
+                <input type="file" id="imageUpload" accept="image/png, image/jpeg">
+                <label for="imageUpload" class="upload-btn">Choose Image</label>
+            </div>
 
-        <div class="upload-section">
-            <input type="file" id="fileInput" accept=".pdf, image/png, image/jpeg, image/jpg">
-            <button id="analyzeBtn">Analyze Lab Test</button>
-        </div>
+            <div class="preview-section" id="previewSection" style="display: none;">
+                <h3>Image Preview</h3>
+                <img id="imagePreview" src="" alt="Scan Preview">
+                <button id="analyzeBtn" class="analyze-btn">Analyze Scan</button>
+            </div>
 
-        <div id="loading" class="hidden">
-            <div class="spinner"></div>
-            <p id="loadingText">Analyzing document... please wait.</p>
-        </div>
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <h3>Analysis Results</h3>
+                <div class="loader" id="loader"></div>
+                <div id="resultText"></div>
+            </div>
+        </main>
 
-        <div id="historySection" class="hidden">
-            <h3>🕒 Last Saved Result</h3>
-            <button id="loadHistoryBtn" class="secondary-btn">View Previous Analysis</button>
-            <button id="clearHistoryBtn" class="danger-btn">Clear Memory</button>
-        </div>
-
-        <div id="results" class="hidden">
-            <h2>Diagnostic Findings</h2>
-            <div id="extractedData"></div>
-            <div id="diagnosisCard"></div>
-            
-            <details>
-                <summary>View Raw Extracted Text</summary>
-                <pre id="rawText"></pre>
-            </details>
-        </div>
+        <footer>
+            <p class="disclaimer"><strong>DISCLAIMER:</strong> MKF Radiology is a demonstration interface. This tool does NOT provide real medical diagnoses. Always consult a qualified healthcare professional for medical advice and interpretation of radiological images.</p>
+        </footer>
     </div>
 
     <script src="script.js"></script>
