@@ -1,97 +1,162 @@
 :root {
     --primary: #0052cc;
-    --whatsapp: #25d366;
-    --pdf-red: #e74c3c;
-    --bg: #f4f5f7;
+    --secondary: #25d366;
+    --text-dark: #172b4d;
+    --text-muted: #5e6c84;
+    --bg-gray: #f4f5f7;
+    --border: #dfe1e6;
     --white: #ffffff;
 }
 
-/* ... Previous Styles stay the same ... */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; }
-.main-wrapper { display: flex; justify-content: center; }
-.app-card { background: var(--white); width: 100%; max-width: 550px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; }
-.app-header { background: var(--primary); color: white; padding: 25px; text-align: center; }
-.p-4 { padding: 25px; }
-.field { margin-bottom: 15px; display: flex; flex-direction: column; }
-.field-row { display: flex; gap: 10px; }
-.field-row > div { flex: 1; }
-label { font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: #555; }
-input, select, textarea { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
-.destination-area { background: #eef5ff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #d0e3ff; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-gray);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
 
-/* New Button Group Styles */
+.app-card {
+    background: var(--white);
+    width: 100%;
+    max-width: 550px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+.app-header {
+    background: var(--primary);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+.app-header h1 { font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 5px; }
+.app-header p { font-size: 0.85rem; opacity: 0.8; }
+
+form { padding: 30px; }
+
+.section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+    display: block;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+}
+
+.field { margin-bottom: 20px; }
+.field-row { display: flex; gap: 15px; }
+.field-row .field { flex: 1; }
+
+label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.destination-area {
+    background: #f0f7ff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #cce0ff;
+    margin: 20px 0;
+}
+
 .button-group {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 button {
+    width: 100%;
     padding: 15px;
     border: none;
     border-radius: 8px;
-    font-weight: 700;
     font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: 0.2s;
+    transition: transform 0.1s, filter 0.2s;
     color: white;
 }
 
-.btn-whatsapp { background: var(--whatsapp); }
-.btn-whatsapp:hover { background: #1ebe57; }
-
+.btn-whatsapp { background: var(--secondary); }
 .btn-pdf { background: #555; }
-.btn-pdf:hover { background: #333; }
+button:hover { filter: brightness(1.05); }
+button:active { transform: scale(0.98); }
 
-/* PDF TEMPLATE STYLING (Internal use for the generator) */
-/* PDF TEMPLATE STYLING - Absolute top alignment */
+/* --- PDF GENERATION FIXES --- */
+
 #pdf-content {
     position: absolute;
     top: 0;
     left: 0;
-    width: 210mm; /* Standard A4 Width */
+    width: 210mm; 
     background: white;
-    z-index: -9999; /* Keeps it behind everything while processing */
-    visibility: hidden; /* Using visibility instead of display:none helps layout calculation */
+    z-index: -1; 
+    visibility: hidden; 
 }
 
 .pdf-container {
-    padding: 15mm; /* Professional 15mm margins on all sides */
+    padding: 20mm;
     color: #333;
     background: white;
 }
 
 .pdf-header { 
     text-align: center; 
-    margin-bottom: 10mm; /* Controlled spacing */
-    border-bottom: 2px solid #0052cc;
+    margin-bottom: 10mm;
+    border-bottom: 3px solid #0052cc;
     padding-bottom: 5mm;
 }
 
-.pdf-header h1 { 
-    color: #0052cc; 
-    font-size: 28pt;
-    margin: 0;
-    text-transform: uppercase;
-}
+.pdf-header h1 { color: #0052cc; font-size: 32pt; margin: 0; }
 
-.pdf-section { 
-    margin: 10mm 0; 
-}
+.pdf-meta { display: flex; justify-content: space-between; margin-bottom: 10mm; font-weight: bold; }
 
+.pdf-section { margin-bottom: 10mm; }
 .pdf-section h3 { 
-    background: #f0f7ff;
-    padding: 3mm;
-    font-size: 14pt;
+    background: #f0f7ff; 
+    padding: 4mm; 
+    color: #0052cc; 
+    font-size: 16pt; 
     margin-bottom: 5mm;
-    color: #0052cc;
 }
 
-.pdf-footer { 
-    margin-top: 20mm; 
-    text-align: center; 
+.pdf-body-text {
+    white-space: pre-wrap;
+    padding: 10px;
+    border-left: 4px solid #eee;
+    min-height: 150px;
+    font-size: 12pt;
+    line-height: 1.6;
 }
-.signature-line { margin: 0 auto; width: 200px; border-bottom: 1px solid #000; margin-bottom: 10px; }
 
-@media (max-width: 480px) { .field-row { flex-direction: column; } }
+.pdf-footer { margin-top: 25mm; text-align: center; border-top: 1px solid #eee; padding-top: 10mm; }
+.signature-space { margin: 10mm auto; width: 250px; border-bottom: 1px solid #000; }
+
+@media (max-width: 480px) { .field-row { flex-direction: column; gap: 0; } }
