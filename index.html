@@ -3,67 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKF Radiology | Diagnostic AI Dashboard</title>
+    <title>MKF Connect | Rx Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="dashboard">
+    <div class="container">
         <header>
-            <h1>MKF Radiology Engine</h1>
-            <p class="subtitle">Client-Side Image Processing Prototype</p>
+            <h1>MKF Connect ⚕️</h1>
+            <p>Direct-to-Pharmacy Prescription Portal</p>
         </header>
 
-        <main class="grid-container">
-            <section class="panel upload-panel">
-                <h2>1. Input Modality</h2>
-                <div class="upload-area" id="dropZone">
-                    <p>Drag & Drop Scan Here</p>
-                    <p>or</p>
-                    <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/webp">
-                    <label for="imageUpload" class="btn">Browse Files</label>
-                </div>
-                <div id="fileMeta" class="meta-data"></div>
-            </section>
-
-            <section class="panel preview-panel">
-                <h2>2. Viewer</h2>
-                <div class="viewer-container">
-                    <img id="imagePreview" src="" alt="Awaiting upload...">
-                </div>
-                <button id="analyzeBtn" class="btn btn-primary" disabled>Initialize AI Analysis</button>
-            </section>
-
-            <section class="panel results-panel">
-                <h2>3. Analysis Report</h2>
-                <div id="processingSteps" class="processing-steps">
-                    <p id="step1">⧖ Preprocessing image...</p>
-                    <p id="step2">⧖ Extracting features...</p>
-                    <p id="step3">⧖ Running classification weights...</p>
-                </div>
+        <form id="prescriptionForm">
+            <div class="form-section">
+                <h3>Patient Information</h3>
                 
-                <div id="reportContainer" class="report-container" style="display: none;">
-                    <div class="report-header">
-                        <span class="badge" id="confidenceBadge">Confidence: --%</span>
-                        <span class="badge badge-outline" id="modalityBadge">Modality: Unknown</span>
+                <div class="input-group">
+                    <label for="patientName">Patient Name</label>
+                    <input type="text" id="patientName" required placeholder="John Doe">
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label for="patientAge">Age</label>
+                        <input type="number" id="patientAge" required placeholder="35">
                     </div>
-                    
-                    <div class="report-body">
-                        <h3>Findings</h3>
-                        <p id="findingsText">--</p>
-                        
-                        <h3>Impression</h3>
-                        <p id="impressionText" class="highlight-text">--</p>
+                    <div class="input-group">
+                        <label for="patientGender">Gender</label>
+                        <select id="patientGender" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
                 </div>
-            </section>
-        </main>
 
-        <footer>
-            <div class="warning-banner">
-                <strong>FOR DEMONSTRATION ONLY:</strong> This static web application uses simulated deterministic logic based on file metadata. It does not perform actual machine learning inference. Do not use for clinical decision-making.
+                <div class="input-group">
+                    <label for="patientPhone">Patient Phone Number</label>
+                    <input type="tel" id="patientPhone" required placeholder="+1 234 567 8900">
+                </div>
             </div>
-        </footer>
+
+            <div class="form-section">
+                <h3>Medical Details</h3>
+                <div class="input-group">
+                    <label for="prescription">Prescription Details</label>
+                    <textarea id="prescription" rows="5" required placeholder="1. Amoxicillin 500mg - Take 1 tablet every 8 hours for 7 days..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-section highlight">
+                <h3>Destination</h3>
+                <div class="input-group">
+                    <label for="pharmacyNumber">Pharmacy WhatsApp Number (incl. country code)</label>
+                    <input type="tel" id="pharmacyNumber" required placeholder="12345678900 (No + or spaces)">
+                    <small>Example: 14155552671 (1 for US, followed by area code and number)</small>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Send to Pharmacy via WhatsApp</button>
+        </form>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
