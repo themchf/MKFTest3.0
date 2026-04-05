@@ -3,66 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKF Connect | Rx Portal</title>
+    <title>MKF Connect | Pro Rx System</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>MKF Connect ⚕️</h1>
-            <p>Direct-to-Pharmacy Prescription Portal</p>
-        </header>
 
-        <form id="prescriptionForm">
-            <div class="form-section">
-                <h3>Patient Information</h3>
-                
-                <div class="input-group">
-                    <label for="patientName">Patient Name</label>
-                    <input type="text" id="patientName" required placeholder="John Doe">
-                </div>
+    <div class="main-wrapper">
+        <div class="app-card">
+            <header class="app-header">
+                <h1>MKF CONNECT</h1>
+                <p>Clinical Prescription & Dispatch</p>
+            </header>
 
-                <div class="row">
-                    <div class="input-group">
-                        <label for="patientAge">Age</label>
-                        <input type="number" id="patientAge" required placeholder="35">
+            <form id="rxForm">
+                <div class="p-4">
+                    <h2 class="section-label">Patient Information</h2>
+                    <div class="field">
+                        <label>Full Name</label>
+                        <input type="text" id="pName" placeholder="Patient Name" required>
                     </div>
-                    <div class="input-group">
-                        <label for="patientGender">Gender</label>
-                        <select id="patientGender" required>
-                            <option value="" disabled selected>Select...</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
+
+                    <div class="field-row">
+                        <div class="field">
+                            <label>Age</label>
+                            <input type="number" id="pAge" placeholder="Age" required>
+                        </div>
+                        <div class="field">
+                            <label>Gender</label>
+                            <select id="pGender" required>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Contact Number</label>
+                        <input type="tel" id="pPhone" placeholder="Patient Phone" required>
+                    </div>
+
+                    <h2 class="section-label mt-4">Prescription</h2>
+                    <div class="field">
+                        <textarea id="pRx" rows="5" placeholder="Medication, Dosage, Frequency..." required></textarea>
+                    </div>
+
+                    <div class="destination-area">
+                        <label>Pharmacy WhatsApp #</label>
+                        <input type="tel" id="pharmaNum" placeholder="Country Code + Number" required>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn-whatsapp">Send to WhatsApp</button>
+                        <button type="button" id="downloadPDF" class="btn-pdf">Download Official PDF</button>
                     </div>
                 </div>
+            </form>
+        </div>
+    </div>
 
-                <div class="input-group">
-                    <label for="patientPhone">Patient Phone Number</label>
-                    <input type="tel" id="patientPhone" required placeholder="+1 234 567 8900">
+    <div id="pdf-content" style="display: none;">
+        <div class="pdf-container">
+            <div class="pdf-header">
+                <h1>PRESCRIPTION</h1>
+                <p>MKF Connect Medical Portal</p>
+            </div>
+            <hr>
+            <div class="pdf-body">
+                <div class="pdf-meta">
+                    <p><strong>Date:</strong> <span id="pdf-date"></span></p>
+                    <p><strong>Rx #:</strong> <span id="pdf-id"></span></p>
+                </div>
+                <div class="pdf-section">
+                    <h3>Patient Details</h3>
+                    <p><strong>Name:</strong> <span id="pdf-pName"></span></p>
+                    <p><strong>Age/Gender:</strong> <span id="pdf-pAgeGender"></span></p>
+                    <p><strong>Phone:</strong> <span id="pdf-pPhone"></span></p>
+                </div>
+                <div class="pdf-section">
+                    <h3>Medications & Instructions</h3>
+                    <div id="pdf-pRx" style="white-space: pre-wrap; padding: 15px; border: 1px solid #eee; min-height: 200px;"></div>
                 </div>
             </div>
-
-            <div class="form-section">
-                <h3>Medical Details</h3>
-                <div class="input-group">
-                    <label for="prescription">Prescription Details</label>
-                    <textarea id="prescription" rows="5" required placeholder="1. Amoxicillin 500mg - Take 1 tablet every 8 hours for 7 days..."></textarea>
-                </div>
+            <div class="pdf-footer">
+                <div class="signature-line"></div>
+                <p>Authorized Medical Practitioner Signature</p>
+                <p style="font-size: 10px; color: #999; margin-top: 20px;">Generated via MKF Connect</p>
             </div>
-
-            <div class="form-section highlight">
-                <h3>Destination</h3>
-                <div class="input-group">
-                    <label for="pharmacyNumber">Pharmacy WhatsApp Number (incl. country code)</label>
-                    <input type="tel" id="pharmacyNumber" required placeholder="12345678900 (No + or spaces)">
-                    <small>Example: 14155552671 (1 for US, followed by area code and number)</small>
-                </div>
-            </div>
-
-            <button type="submit" class="submit-btn">Send to Pharmacy via WhatsApp</button>
-        </form>
+        </div>
     </div>
 
     <script src="script.js"></script>
