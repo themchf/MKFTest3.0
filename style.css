@@ -1,38 +1,125 @@
-document.getElementById('prescriptionForm').addEventListener('submit', function(event) {
-    // Prevent the form from refreshing the page
-    event.preventDefault();
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    // Gather all the data from the form
-    const patientName = document.getElementById('patientName').value.trim();
-    const patientAge = document.getElementById('patientAge').value.trim();
-    const patientGender = document.getElementById('patientGender').value;
-    const patientPhone = document.getElementById('patientPhone').value.trim();
-    const prescription = document.getElementById('prescription').value.trim();
-    let pharmacyNumber = document.getElementById('pharmacyNumber').value.trim();
+body {
+    background-color: #f0f4f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
 
-    // Clean up the pharmacy number: remove any +, spaces, dashes, or brackets
-    pharmacyNumber = pharmacyNumber.replace(/\D/g, '');
+.container {
+    background: white;
+    max-width: 600px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
 
-    // Format the message for WhatsApp using markdown (asterisks for bold)
-    const message = `*MKF Connect - New Prescription* 🏥
+header {
+    background-color: #0056b3;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
 
-*Patient Details:*
-👤 Name: ${patientName}
-📅 Age: ${patientAge}
-⚧️ Gender: ${patientGender}
-📞 Phone: ${patientPhone}
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.2rem;
+}
 
-*Prescription / Orders:*
-💊 ${prescription}
+header p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
 
-_Sent securely via MKF Connect portal._`;
+form {
+    padding: 2rem;
+}
 
-    // URL Encode the message so it can be passed safely in a web link
-    const encodedMessage = encodeURIComponent(message);
+.form-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
 
-    // Create the WhatsApp API link
-    const whatsappURL = `https://wa.me/${pharmacyNumber}?text=${encodedMessage}`;
+.form-section:last-of-type {
+    border-bottom: none;
+}
 
-    // Open WhatsApp in a new tab/window
-    window.open(whatsappURL, '_blank');
-});
+.form-section.highlight {
+    background-color: #f8fafc;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+h3 {
+    margin-bottom: 1rem;
+    color: #0056b3;
+    font-size: 1.1rem;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    gap: 1rem;
+}
+
+.row .input-group {
+    flex: 1;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: #555;
+}
+
+input, select, textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+small {
+    margin-top: 0.3rem;
+    color: #777;
+    font-size: 0.8rem;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: #25D366; /* WhatsApp Green */
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #1ebe57;
+}
