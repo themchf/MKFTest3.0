@@ -45,16 +45,53 @@ button {
 .btn-pdf:hover { background: #333; }
 
 /* PDF TEMPLATE STYLING (Internal use for the generator) */
-.pdf-container {
-    padding: 40px;
-    color: #333;
+/* PDF TEMPLATE STYLING - Absolute top alignment */
+#pdf-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 210mm; /* Standard A4 Width */
+    background: white;
+    z-index: -9999; /* Keeps it behind everything while processing */
+    visibility: hidden; /* Using visibility instead of display:none helps layout calculation */
 }
-.pdf-header { text-align: center; margin-bottom: 20px; }
-.pdf-header h1 { color: #0052cc; letter-spacing: 2px; }
-.pdf-section { margin: 25px 0; }
-.pdf-section h3 { border-bottom: 2px solid #0052cc; padding-bottom: 5px; margin-bottom: 10px; font-size: 1.1rem; }
-.pdf-meta { display: flex; justify-content: space-between; font-size: 0.9rem; }
-.pdf-footer { margin-top: 50px; text-align: center; }
+
+.pdf-container {
+    padding: 15mm; /* Professional 15mm margins on all sides */
+    color: #333;
+    background: white;
+}
+
+.pdf-header { 
+    text-align: center; 
+    margin-bottom: 10mm; /* Controlled spacing */
+    border-bottom: 2px solid #0052cc;
+    padding-bottom: 5mm;
+}
+
+.pdf-header h1 { 
+    color: #0052cc; 
+    font-size: 28pt;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.pdf-section { 
+    margin: 10mm 0; 
+}
+
+.pdf-section h3 { 
+    background: #f0f7ff;
+    padding: 3mm;
+    font-size: 14pt;
+    margin-bottom: 5mm;
+    color: #0052cc;
+}
+
+.pdf-footer { 
+    margin-top: 20mm; 
+    text-align: center; 
+}
 .signature-line { margin: 0 auto; width: 200px; border-bottom: 1px solid #000; margin-bottom: 10px; }
 
 @media (max-width: 480px) { .field-row { flex-direction: column; } }
