@@ -1,38 +1,67 @@
-document.getElementById('prescriptionForm').addEventListener('submit', function(event) {
-    // Prevent the form from refreshing the page
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+    const rxForm = document.getElementById('rxForm');
+    const pdfBtn = document.getElementById('downloadPDF');
 
-    // Gather all the data from the form
-    const patientName = document.getElementById('patientName').value.trim();
-    const patientAge = document.getElementById('patientAge').value.trim();
-    const patientGender = document.getElementById('patientGender').value;
-    const patientPhone = document.getElementById('patientPhone').value.trim();
-    const prescription = document.getElementById('prescription').value.trim();
-    let pharmacyNumber = document.getElementById('pharmacyNumber').value.trim();
+    // HELPER: Get Form Data
+    const getFormData = () => {
+        return {
+            name: document.getElementById('pName').value,
+            age: document.getElementById('pAge').value,
+            gender: document.getElementById('pGender').value,
+            phone: document.getElementById('pPhone').value,
+            rx: document.getElementById('pRx').value,
+            pharmacy: document.getElementById('pharmaNum').value.replace(/\D/g, '')
+        };
+    };
 
-    // Clean up the pharmacy number: remove any +, spaces, dashes, or brackets
-    pharmacyNumber = pharmacyNumber.replace(/\D/g, '');
+    // 1. WHATSAPP LOGIC
+    rxForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = getFormData();
+        
+        const text = `*MKF CONNECT - PRESCRIPTION*%0A%0A` +
+                     `👤 *Patient:* ${data.name}%0A` +
+                     `📅 *Age/Gender:* ${data.age}/${data.gender}%0A` +
+                     `📞 *Phone:* ${data.phone}%0A%0A` +
+                     `💊 *Rx:*%0A${data.rx}`;
 
-    // Format the message for WhatsApp using markdown (asterisks for bold)
-    const message = `*MKF Connect - New Prescription* 🏥
+        window.open(`https://wa.me/${data.pharmacy}?text=${text}`, '_blank');
+    });
 
-*Patient Details:*
-👤 Name: ${patientName}
-📅 Age: ${patientAge}
-⚧️ Gender: ${patientGender}
-📞 Phone: ${patientPhone}
+    // 2. PDF GENERATION LOGIC
+    pdfBtn.addEventListener('click', () => {
+        const data = getFormData();
+        
+        // Check if form is filled
+        if(!data.name || !data.rx) {
+            alert("Please fill in Patient Name and Prescription details first.");
+            return;
+        }
 
-*Prescription / Orders:*
-💊 ${prescription}
+        // Fill the hidden template with data
+        document.getElementById('pdf-pName').innerText = data.name;
+        document.getElementById('pdf-pAgeGender').innerText = `${data.age} / ${data.gender}`;
+        document.getElementById('pdf-pPhone').innerText = data.phone;
+        document.getElementById('pdf-pRx').innerText = data.rx;
+        document.getElementById('pdf-date').innerText = new Date().toLocaleDateString();
+        document.getElementById('pdf-id').innerText = Math.floor(1000 + Math.random() * 9000);
 
-_Sent securely via MKF Connect portal._`;
+        // Target the template div
+        const element = document.getElementById('pdf-content');
+        element.style.display = 'block'; // Temporarily show for capture
 
-    // URL Encode the message so it can be passed safely in a web link
-    const encodedMessage = encodeURIComponent(message);
+        // PDF Options
+        const opt = {
+            margin:       10,
+            filename:     `Rx_${data.name.replace(/\s+/g, '_')}.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
 
-    // Create the WhatsApp API link
-    const whatsappURL = `https://wa.me/${pharmacyNumber}?text=${encodedMessage}`;
-
-    // Open WhatsApp in a new tab/window
-    window.open(whatsappURL, '_blank');
+        // Run the conversion
+        html2pdf().set(opt).from(element).save().then(() => {
+            element.style.display = 'none'; // Hide it again
+        });
+    });
 });
