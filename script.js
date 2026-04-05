@@ -29,22 +29,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 2. PDF GENERATION LOGIC
-    pdfBtn.addEventListener('click', () => {
+   pdfBtn.addEventListener('click', () => {
         const data = getFormData();
         
-        // Check if form is filled
         if(!data.name || !data.rx) {
             alert("Please fill in Patient Name and Prescription details first.");
             return;
         }
 
-        // Fill the hidden template with data
+        // Fill the template
         document.getElementById('pdf-pName').innerText = data.name;
         document.getElementById('pdf-pAgeGender').innerText = `${data.age} / ${data.gender}`;
         document.getElementById('pdf-pPhone').innerText = data.phone;
         document.getElementById('pdf-pRx').innerText = data.rx;
         document.getElementById('pdf-date').innerText = new Date().toLocaleDateString();
         document.getElementById('pdf-id').innerText = Math.floor(1000 + Math.random() * 9000);
+
+        const element = document.getElementById('pdf-content');
+        
+        // Show temporarily for the capture
+        element.style.visibility = 'visible';
+
+        const opt = {
+            margin:       0, // We handle margins in CSS now for better control
+            filename:     `Rx_${data.name.replace(/\s+/g, '_')}.pdf`,
+            image:        { type: 'jpeg', quality: 1.0 },
+            html2canvas:  { 
+                scale: 2, 
+                useCORS: true, 
+                scrollY: 0 // Forces the capture to start at the very top
+            },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+            element.style.visibility = 'hidden'; // Hide it again
+        });
+    });
 
         // Target the template div
         const element = document.getElementById('pdf-content');
