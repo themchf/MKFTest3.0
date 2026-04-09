@@ -1,3 +1,4 @@
+/* --- 1. GLOBAL VARIABLES & RESET --- */
 :root {
     --primary: #0052cc;
     --secondary: #25d366;
@@ -15,7 +16,7 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-gray);
     color: var(--text-dark);
     display: flex;
@@ -23,12 +24,13 @@ body {
     padding: 40px 20px;
 }
 
+/* --- 2. MAIN APP UI --- */
 .app-card {
     background: var(--white);
     width: 100%;
     max-width: 550px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     overflow: hidden;
     position: relative;
     z-index: 10;
@@ -41,28 +43,52 @@ body {
     text-align: center;
 }
 
-.app-header h1 { font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 5px; }
-.app-header p { font-size: 0.85rem; opacity: 0.8; }
+.app-header h1 { 
+    font-size: 1.6rem; 
+    letter-spacing: 1px; 
+    margin-bottom: 5px; 
+}
 
-form { padding: 30px; }
+.app-header p { 
+    font-size: 0.85rem; 
+    opacity: 0.9; 
+}
+
+form { 
+    padding: 25px; 
+}
 
 .section-label {
     font-size: 0.75rem;
     text-transform: uppercase;
-    color: var(--text-muted);
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    color: var(--primary);
+    font-weight: 800;
+    letter-spacing: 1px;
     margin-bottom: 15px;
     display: block;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--bg-gray);
     padding-bottom: 5px;
 }
 
-.field { margin-bottom: 20px; }
-.field-row { display: flex; gap: 15px; }
-.field-row .field { flex: 1; }
+.field { 
+    margin-bottom: 18px; 
+}
 
-label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+.field-row { 
+    display: flex; 
+    gap: 15px; 
+}
+
+.field-row .field { 
+    flex: 1; 
+}
+
+label { 
+    display: block; 
+    font-size: 0.85rem; 
+    font-weight: 600; 
+    margin-bottom: 6px; 
+}
 
 input, select, textarea {
     width: 100%;
@@ -70,19 +96,26 @@ input, select, textarea {
     border: 2px solid var(--border);
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.2s;
+    background: #fafbfc;
+    transition: all 0.2s;
 }
 
 input:focus, textarea:focus {
     outline: none;
     border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+}
+
+textarea {
+    resize: none;
 }
 
 .destination-area {
     background: #f0f7ff;
     padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #cce0ff;
+    border-radius: 10px;
+    border: 1px dashed var(--primary);
     margin: 20px 0;
 }
 
@@ -94,68 +127,113 @@ input:focus, textarea:focus {
 
 button {
     width: 100%;
-    padding: 15px;
+    padding: 16px;
     border: none;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.1s, filter 0.2s;
+    transition: all 0.2s;
     color: white;
 }
 
-.btn-whatsapp { background: var(--secondary); }
-.btn-pdf { background: #555; }
-button:hover { filter: brightness(1.05); }
-button:active { transform: scale(0.98); }
+.btn-whatsapp { 
+    background: var(--secondary); 
+}
 
-/* --- PDF GENERATION FIXES --- */
+.btn-pdf { 
+    background: #444; 
+}
+
+button:hover { 
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+button:active { 
+    transform: translateY(1px); 
+}
+
+/* --- 3. PDF GENERATION STYLES (The Fix) --- */
 
 #pdf-content {
     position: absolute;
     top: 0;
     left: 0;
-    width: 210mm; 
-    background: white;
-    display: none; /* Safely hides it completely */
-    z-index: 9999; /* Ensures it sits ON TOP of the background when generating */
-}
-.pdf-container {
-    padding: 20mm;
-    color: #333;
-    background: white;
+    width: 210mm; /* A4 Width */
+    background: #ffffff !important;
+    display: none; /* JS will toggle this to block during capture */
+    z-index: 9999;
 }
 
-.pdf-header { 
-    text-align: center; 
+.pdf-container {
+    padding: 25mm;
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+.pdf-header {
+    text-align: center;
+    border-bottom: 4px solid var(--primary);
+    padding-bottom: 10mm;
     margin-bottom: 10mm;
-    border-bottom: 3px solid #0052cc;
+}
+
+.pdf-header h1 {
+    color: var(--primary) !important;
+    font-size: 36pt;
+    margin-bottom: 2mm;
+}
+
+.pdf-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10mm;
+    font-size: 12pt;
+    border-bottom: 1px solid #eee;
     padding-bottom: 5mm;
 }
 
-.pdf-header h1 { color: #0052cc; font-size: 32pt; margin: 0; }
+.pdf-section {
+    margin-bottom: 10mm;
+}
 
-.pdf-meta { display: flex; justify-content: space-between; margin-bottom: 10mm; font-weight: bold; }
-
-.pdf-section { margin-bottom: 10mm; }
-.pdf-section h3 { 
-    background: #f0f7ff; 
-    padding: 4mm; 
-    color: #0052cc; 
-    font-size: 16pt; 
+.pdf-section h3 {
+    background: #f0f7ff !important;
+    color: var(--primary) !important;
+    padding: 4mm;
+    font-size: 16pt;
     margin-bottom: 5mm;
+    border-radius: 4px;
 }
 
-.pdf-body-text {
+/* Ensure data text is explicitly black and visible */
+#pdf-pName, #pdf-pAgeGender, #pdf-pPhone, #pdf-pRx, #pdf-date, #pdf-id {
+    color: #000000 !important;
+    font-weight: bold;
+}
+
+#pdf-pRx {
     white-space: pre-wrap;
-    padding: 10px;
-    border-left: 4px solid #eee;
-    min-height: 150px;
-    font-size: 12pt;
+    font-size: 14pt;
     line-height: 1.6;
+    padding: 5mm;
+    border: 1px solid #eee;
+    min-height: 60mm;
 }
 
-.pdf-footer { margin-top: 25mm; text-align: center; border-top: 1px solid #eee; padding-top: 10mm; }
-.signature-space { margin: 10mm auto; width: 250px; border-bottom: 1px solid #000; }
+.pdf-footer {
+    margin-top: 30mm;
+    text-align: center;
+}
 
-@media (max-width: 480px) { .field-row { flex-direction: column; gap: 0; } }
+.signature-space {
+    margin: 10mm auto;
+    width: 60mm;
+    border-bottom: 1px solid #000;
+}
+
+/* Responsive fix for phones */
+@media (max-width: 480px) {
+    .field-row { flex-direction: column; gap: 0; }
+}
