@@ -1,239 +1,60 @@
-/* --- 1. GLOBAL VARIABLES & RESET --- */
 :root {
     --primary: #0052cc;
-    --secondary: #25d366;
-    --text-dark: #172b4d;
-    --text-muted: #5e6c84;
-    --bg-gray: #f4f5f7;
-    --border: #dfe1e6;
+    --whatsapp: #25d366;
+    --pdf-red: #e74c3c;
+    --bg: #f4f5f7;
     --white: #ffffff;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ... Previous Styles stay the same ... */
 
-body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-gray);
-    color: var(--text-dark);
-    display: flex;
-    justify-content: center;
-    padding: 40px 20px;
-}
+body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; }
+.main-wrapper { display: flex; justify-content: center; }
+.app-card { background: var(--white); width: 100%; max-width: 550px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; }
+.app-header { background: var(--primary); color: white; padding: 25px; text-align: center; }
+.p-4 { padding: 25px; }
+.field { margin-bottom: 15px; display: flex; flex-direction: column; }
+.field-row { display: flex; gap: 10px; }
+.field-row > div { flex: 1; }
+label { font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: #555; }
+input, select, textarea { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
+.destination-area { background: #eef5ff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #d0e3ff; }
 
-/* --- 2. MAIN APP UI --- */
-.app-card {
-    background: var(--white);
-    width: 100%;
-    max-width: 550px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    overflow: hidden;
-    position: relative;
-    z-index: 10;
-}
-
-.app-header {
-    background: var(--primary);
-    color: white;
-    padding: 30px;
-    text-align: center;
-}
-
-.app-header h1 { 
-    font-size: 1.6rem; 
-    letter-spacing: 1px; 
-    margin-bottom: 5px; 
-}
-
-.app-header p { 
-    font-size: 0.85rem; 
-    opacity: 0.9; 
-}
-
-form { 
-    padding: 25px; 
-}
-
-.section-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    color: var(--primary);
-    font-weight: 800;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
-    display: block;
-    border-bottom: 2px solid var(--bg-gray);
-    padding-bottom: 5px;
-}
-
-.field { 
-    margin-bottom: 18px; 
-}
-
-.field-row { 
-    display: flex; 
-    gap: 15px; 
-}
-
-.field-row .field { 
-    flex: 1; 
-}
-
-label { 
-    display: block; 
-    font-size: 0.85rem; 
-    font-weight: 600; 
-    margin-bottom: 6px; 
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    font-size: 1rem;
-    background: #fafbfc;
-    transition: all 0.2s;
-}
-
-input:focus, textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
-}
-
-textarea {
-    resize: none;
-}
-
-.destination-area {
-    background: #f0f7ff;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px dashed var(--primary);
-    margin: 20px 0;
-}
-
+/* New Button Group Styles */
 .button-group {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 button {
-    width: 100%;
-    padding: 16px;
+    padding: 15px;
     border: none;
     border-radius: 8px;
-    font-size: 1.1rem;
     font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: 0.2s;
     color: white;
 }
 
-.btn-whatsapp { 
-    background: var(--secondary); 
-}
+.btn-whatsapp { background: var(--whatsapp); }
+.btn-whatsapp:hover { background: #1ebe57; }
 
-.btn-pdf { 
-    background: #444; 
-}
+.btn-pdf { background: #555; }
+.btn-pdf:hover { background: #333; }
 
-button:hover { 
-    filter: brightness(1.1);
-    transform: translateY(-1px);
-}
-
-button:active { 
-    transform: translateY(1px); 
-}
-
-/* --- 3. PDF GENERATION STYLES (The Fix) --- */
-
-#pdf-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 210mm; /* A4 Width */
-    background: #ffffff !important;
-    display: none; /* JS will toggle this to block during capture */
-    z-index: 9999;
-}
-
+/* PDF TEMPLATE STYLING (Internal use for the generator) */
 .pdf-container {
-    padding: 25mm;
-    background: #ffffff !important;
-    color: #000000 !important;
+    padding: 40px;
+    color: #333;
 }
+.pdf-header { text-align: center; margin-bottom: 20px; }
+.pdf-header h1 { color: #0052cc; letter-spacing: 2px; }
+.pdf-section { margin: 25px 0; }
+.pdf-section h3 { border-bottom: 2px solid #0052cc; padding-bottom: 5px; margin-bottom: 10px; font-size: 1.1rem; }
+.pdf-meta { display: flex; justify-content: space-between; font-size: 0.9rem; }
+.pdf-footer { margin-top: 50px; text-align: center; }
+.signature-line { margin: 0 auto; width: 200px; border-bottom: 1px solid #000; margin-bottom: 10px; }
 
-.pdf-header {
-    text-align: center;
-    border-bottom: 4px solid var(--primary);
-    padding-bottom: 10mm;
-    margin-bottom: 10mm;
-}
-
-.pdf-header h1 {
-    color: var(--primary) !important;
-    font-size: 36pt;
-    margin-bottom: 2mm;
-}
-
-.pdf-meta {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10mm;
-    font-size: 12pt;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5mm;
-}
-
-.pdf-section {
-    margin-bottom: 10mm;
-}
-
-.pdf-section h3 {
-    background: #f0f7ff !important;
-    color: var(--primary) !important;
-    padding: 4mm;
-    font-size: 16pt;
-    margin-bottom: 5mm;
-    border-radius: 4px;
-}
-
-/* Ensure data text is explicitly black and visible */
-#pdf-pName, #pdf-pAgeGender, #pdf-pPhone, #pdf-pRx, #pdf-date, #pdf-id {
-    color: #000000 !important;
-    font-weight: bold;
-}
-
-#pdf-pRx {
-    white-space: pre-wrap;
-    font-size: 14pt;
-    line-height: 1.6;
-    padding: 5mm;
-    border: 1px solid #eee;
-    min-height: 60mm;
-}
-
-.pdf-footer {
-    margin-top: 30mm;
-    text-align: center;
-}
-
-.signature-space {
-    margin: 10mm auto;
-    width: 60mm;
-    border-bottom: 1px solid #000;
-}
-
-/* Responsive fix for phones */
-@media (max-width: 480px) {
-    .field-row { flex-direction: column; gap: 0; }
-}
+@media (max-width: 480px) { .field-row { flex-direction: column; } }
