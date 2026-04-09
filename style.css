@@ -49,12 +49,12 @@ button {
     padding: 40px;
     color: #333;
 }
-.pdf-header { text-align: center; margin-bottom: 20px; }
+.pdf-header { text-align: top; margin-bottom: 20px; }
 .pdf-header h1 { color: #0052cc; letter-spacing: 2px; }
 .pdf-section { margin: 25px 0; }
 .pdf-section h3 { border-bottom: 2px solid #0052cc; padding-bottom: 5px; margin-bottom: 10px; font-size: 1.1rem; }
 .pdf-meta { display: flex; justify-content: space-between; font-size: 0.9rem; }
-.pdf-footer { margin-top: 50px; text-align: center; }
+.pdf-footer { margin-top: 50px; text-align: top; }
 .signature-line { margin: 0 auto; width: 200px; border-bottom: 1px solid #000; margin-bottom: 10px; }
 
 @media (max-width: 480px) { .field-row { flex-direction: column; } }
