@@ -117,10 +117,9 @@ button:active { transform: scale(0.98); }
     left: 0;
     width: 210mm; 
     background: white;
-    z-index: -1; 
-    visibility: hidden; 
+    display: none; /* Safely hides it completely */
+    z-index: 9999; /* Ensures it sits ON TOP of the background when generating */
 }
-
 .pdf-container {
     padding: 20mm;
     color: #333;
